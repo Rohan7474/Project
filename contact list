@@ -1,0 +1,52 @@
+class ContactBook:
+    def __init__(self):
+        self.contacts = {}
+
+    def add_contact(self, name, phone_number, email, address):
+        self.contacts[name] = {'phone_number': phone_number, 'email': email, 'address': address}
+        print(f"{name} added to contacts.")
+
+    def view_contact_list(self):
+        if not self.contacts:
+            print("Contact list is empty.")
+        else:
+            print("---- Contact List ----")
+            for name, info in self.contacts.items():
+                print(f"Name: {name}, Phone Number: {info['phone_number']}")
+
+    def search_contact(self, keyword):
+        results = [name for name in self.contacts.keys() if keyword in name or keyword in self.contacts[name]['phone_number']]
+        if results:
+            print("Matching contacts:")
+            for result in results:
+                print(f"Name: {result}, Phone Number: {self.contacts[result]['phone_number']}")
+        else:
+            print("No matching contacts found.")
+
+    def update_contact(self, name, phone_number, email, address):
+        if name in self.contacts:
+            self.contacts[name] = {'phone_number': phone_number, 'email': email, 'address': address}
+            print(f"{name}'s contact details updated.")
+        else:
+            print("Contact not found.")
+
+    def delete_contact(self, name):
+        if name in self.contacts:
+            del self.contacts[name]
+            print(f"{name} deleted from contacts.")
+        else:
+            print("Contact not found.")
+
+# Creating an instance of ContactBook
+contact_book = ContactBook()
+
+# Sample usage
+contact_book.add_contact("Rahul", "1234567890", "rahul@example.com", "123, noida, City")
+contact_book.add_contact("rohan", "9876543210", "rohan@example.com", "456, noida, Town")
+
+contact_book.view_contact_list()
+contact_book.search_contact("Rahul")
+contact_book.update_contact("Rahul", "9999999999", "newrahul@example.com", "456, noida, City")
+contact_book.view_contact_list()
+contact_book.delete_contact("rohan")
+contact_book.view_contact_list()
